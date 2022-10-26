@@ -6,6 +6,7 @@ const rl = readline.createInterface({
 });
 
 var secretNumber;
+var numOfAttempts = 5;
 
 function askGuess(number){
     number = parseInt(number)
@@ -14,8 +15,12 @@ function askGuess(number){
         rl.close();
     }
     else{
+        if(numOfAttempts === 0){
+            console.log('You run out of Attempts. You lost')
+            rl.close()
+        }
+        numOfAttempts--
         rl.question('Enter a guess', askGuess)
-
     }
 }
 
