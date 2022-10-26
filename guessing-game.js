@@ -5,7 +5,13 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-const secretNumber = 4;
+function randomInRange(min = 0, max = 100) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+const secretNumber = randomInRange()
 
 function checkGuess(number){
     if(number > secretNumber){
@@ -34,7 +40,18 @@ function askGuess(number){
         rl.question('Enter a guess', askGuess)
 
     }
-
 }
 
 rl.question('Enter a guess', askGuess)
+
+
+// function askRange(){
+//     rl.question('Enter min value', (min) =>{
+//         min =  Math.ceil(min)
+//         rl.question('Enter max vaulue', (max) =>{
+//             max =   Math.floor(max)
+//             return Math.floor(Math.random() * (max - min +1) + min)
+//         })
+//         rl.close()
+//     })
+// }
