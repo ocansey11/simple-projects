@@ -5,13 +5,19 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-function randomInRange(min = 0, max = 100) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
+var secretNumber;
 
-const secretNumber = randomInRange()
+function askGuess(number){
+    number = parseInt(number)
+    if(checkGuess(number)){
+        console.log('You win')
+        rl.close();
+    }
+    else{
+        rl.question('Enter a guess', askGuess)
+
+    }
+}
 
 function checkGuess(number){
     if(number > secretNumber){
@@ -27,31 +33,22 @@ function checkGuess(number){
         return true
     }
 }
-// console.log(checkGuess(4))
 
-
-function askGuess(number){
-    number = parseInt(number)
-    if(checkGuess(number)){
-        console.log('You win')
-        rl.close();
-    }
-    else{
-        rl.question('Enter a guess', askGuess)
-
-    }
+function randomInRange(min = 0, max = 100) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-rl.question('Enter a guess', askGuess)
-
-
-// function askRange(){
-//     rl.question('Enter min value', (min) =>{
-//         min =  Math.ceil(min)
-//         rl.question('Enter max vaulue', (max) =>{
-//             max =   Math.floor(max)
-//             return Math.floor(Math.random() * (max - min +1) + min)
-//         })
-//         rl.close()
-//     })
-// }
+function askRange(){
+    rl.question('Enter a max value', (max) =>{
+        rl.question('Enter min vaulue', (min) =>{
+            min = Number(min)
+            max = Number(max)
+            secretNumber =  randomInRange(min, max)
+            console.log("I'm thinking of a figure between " + min + ' and ' + max)
+            rl.question('Enter a guess', askGuess)
+        })
+    })
+}
+rl.question('Start game', askRange)
